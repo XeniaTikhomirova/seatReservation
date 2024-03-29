@@ -150,6 +150,10 @@ label {
   box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
+#error {
+   text-decoration: none;
+}
+
 
 
 

@@ -44,7 +44,6 @@ function makeRows(sectionLegth, rowLength, placement) {
          html += `<div class="a" id="${row + counter}">${counter}</div>`;
          counter++;
       }
-
       switch(placement) {
          case "right": html += `<div class="label">${row}</div>`; break;
          case "left": counter = counter + (rowLength - sectionLegth) ; break;
@@ -70,7 +69,7 @@ makeRows(3, 15, "right");
 
 (function(){
    "use strict";
-
+   
    let arrSeates = [];
    let allSeats = document.querySelectorAll(".a");
 
@@ -90,26 +89,50 @@ makeRows(3, 15, "right");
          document.getElementById(thiseSeat).className = "a";
          arrSeates.splice(index, 1);
       }
+      manageDisplayForm();
    }
 
    const resForm = document.getElementById("reserve");
    const sectionForm = document.getElementById("resform");
    const cancelForm = document.getElementById("cancel");
+   const confForm = document.getElementById("confirmres");
+   const selectedSeates = document.getElementById("selectedseats");
 
-   resForm.addEventListener("click", function(evt){
+   resForm.addEventListener("click", evt => {
       evt.preventDefault();
       sectionForm.style.display = "block";
+      manageDisplayForm();
    })
 
-   cancelForm.addEventListener("click", function(evt){
+   cancelForm.addEventListener("click", evt => {
       evt.preventDefault();
       sectionForm.style.display = "none";
    })
 
+   function manageDisplayForm(){
+      if(arrSeates.length < 1){
+         confForm.style.display = "none";
+         selectedSeates.innerHTML = `You have selected no Seats. Please, choose the seat <br><p><a href="#" id="error">Close</a></p>`;
+         document.getElementById("error").addEventListener("click", evt => {
+            evt.preventDefault();
+            sectionForm.style.display ="none";
+         })
+      } else {
+         confForm.style.display = "block";
+         let selectedSeatesMessage1 = arrSeates.length;
+         let selectedSeatesMessage2 = arrSeates.toString();
+         selectedSeatesMessage2 = selectedSeatesMessage2.replace(/,/g, ", ");
+         selectedSeatesMessage2 = selectedSeatesMessage2.replace(/,(?=[^,]*$)/, " and");
+         let selectedSeatesMessage3 = "Seat";
 
+         if(arrSeates.length > 1){
+            selectedSeatesMessage3 += "s"
+         } 
+         selectedSeates.innerHTML = `You have selected ${selectedSeatesMessage1} ${selectedSeatesMessage3}: ${selectedSeatesMessage2}`;
+      }
+   }
 
-
-
+   manageDisplayForm();
 }())
 
 
