@@ -68,7 +68,49 @@ makeRows(3, 15, "right");
    };
 }());
 
+(function(){
+   "use strict";
 
+   let arrSeates = [];
+   let allSeats = document.querySelectorAll(".a");
+
+   allSeats.forEach(seat => {
+      seat.addEventListener("click", (evt) => {
+         evt.preventDefault();
+         selectOrDelete(seat.id); 
+      })
+   })
+
+   function selectOrDelete(thiseSeat){
+      let index = arrSeates.indexOf(thiseSeat);
+      if(index === -1){
+         document.getElementById(thiseSeat).className = "s";
+         arrSeates.push(thiseSeat);
+      } else {
+         document.getElementById(thiseSeat).className = "a";
+         arrSeates.splice(index, 1);
+      }
+   }
+
+   const resForm = document.getElementById("reserve");
+   const sectionForm = document.getElementById("resform");
+   const cancelForm = document.getElementById("cancel");
+
+   resForm.addEventListener("click", function(evt){
+      evt.preventDefault();
+      sectionForm.style.display = "block";
+   })
+
+   cancelForm.addEventListener("click", function(evt){
+      evt.preventDefault();
+      sectionForm.style.display = "none";
+   })
+
+
+
+
+
+}())
 
 
 
