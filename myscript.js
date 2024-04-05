@@ -158,7 +158,7 @@ makeRows(3, 15, "right");
 
          // to make message correct in terms of quantity of selected seats:
          if(arrSeates.length > 1){
-            selectedSeatesMessage3 += "s" //"Seats" will bw shown, when we have more than 1 seat
+            selectedSeatesMessage3 += "s" //"Seats" will be shown, when we have more than 1 seat
          } 
          //final correct message:
          selectedSeates.innerHTML = `You have selected ${selectedSeatesMessage1} ${selectedSeatesMessage3}: ${selectedSeatesMessage2}`;
@@ -175,13 +175,12 @@ makeRows(3, 15, "right");
    
    // add seats in the temprory memory -> change the user interface
    function manageConfirmation() {
+
       let fname = document.getElementById("fname").value;
       let lname = document.getElementById("lname").value;
-      // to clean prev values:
-      fname = "";
-      lname = "";
+
       // get the number of existing orders, to continue this row correctly:
-      const hardCoreRecords = Object.keys(reservedSeats).length;
+      const hardCoreRecords = Object.keys(reservedSeats).length; // 4
       let counter = 1;
       let nextRecord = "";
 
@@ -202,11 +201,12 @@ makeRows(3, 15, "right");
          // we should increment counter to be able continue the row in the richt sequence:
          counter++;
       });
-
       // we should clean all up, to be able book once again:
+      manageDisplayForm();
+      document.getElementById("fname").value = "";
+      document.getElementById("lname").value = "";
       sectionForm.style.display = "none";
       arrSeates = [];
-      manageDisplayForm();
-      console.log(reservedSeats);
    };
+
 }())
